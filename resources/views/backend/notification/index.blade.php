@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','E-SHOP || All Notifications')
+@section('title','PHUONGBAC || All Notifications')
 @section('main-content')
 <div class="card">
     <div class="row">
@@ -87,8 +87,8 @@
             // alert(dataID);
             e.preventDefault();
             swal({
-                  title: "Are you sure?",
-                  text: "Once deleted, you will not be able to recover this data!",
+                  title: "Xác nhận lại",
+                    text: "Một khi xóa dữ liệu không thể khôi phục!",
                   icon: "warning",
                   buttons: true,
                   dangerMode: true,

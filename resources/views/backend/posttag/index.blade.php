@@ -117,8 +117,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Xác nhận lại",
+                    text: "Một khi xóa dữ liệu không thể khôi phục!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

@@ -63,15 +63,15 @@ class HomeController extends Controller
         $order=Order::find($id);
         if($order){
            if($order->status=="process" || $order->status=='delivered' || $order->status=='cancel'){
-                return redirect()->back()->with('error','You can not delete this order now');
+                return redirect()->back()->with('error','Đơn hàng đã được vận chuyển');
            }
            else{
                 $status=$order->delete();
                 if($status){
-                    request()->session()->flash('success','Order Successfully deleted');
+                    request()->session()->flash('success','Đơn hàng đã được hủy');
                 }
                 else{
-                    request()->session()->flash('error','Order can not deleted');
+                    request()->session()->flash('error','Đơn hàng không thể hủy');
                 }
                 return redirect()->route('user.order.index');
            }

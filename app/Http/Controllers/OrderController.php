@@ -150,7 +150,7 @@ class OrderController extends Controller
         Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
 
         // dd($users);
-        request()->session()->flash('success','Your product successfully placed in order');
+        request()->session()->flash('success','Đơn hàng đã được khởi tạo');
         return redirect()->route('home');
     }
 
@@ -162,9 +162,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order=Order::find($id);
-        // return $order;
-        return view('backend.order.show')->with('order',$order);
+        // $order=Order::find($id);
+        // // return $order;
+        // return view('backend.order.show')->with('order',$order);
+         $order = Order::with('cart.product')->findOrFail($id);
+        return view('backend.order.show')->with('order', $order);
     }
 
     /**

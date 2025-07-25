@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','Atino || Tạo thương hiệu')
+@section('title','PHUONGBAC || Tạo thương hiệu')
 @section('main-content')
 
 <div class="card">

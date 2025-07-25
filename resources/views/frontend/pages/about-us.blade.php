@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','Atino')
+@section('title','PHUONGBAC')
 
 @section('main-content')
 

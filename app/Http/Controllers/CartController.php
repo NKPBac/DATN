@@ -35,7 +35,7 @@ class CartController extends Controller
             $already_cart->quantity = $already_cart->quantity + 1;
             $already_cart->amount = $product->price+ $already_cart->amount;
             // return $already_cart->quantity;
-            if ($already_cart->product->stock < $already_cart->quantity || $already_cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            if ($already_cart->product->stock < $already_cart->quantity || $already_cart->product->stock <= 0) return back()->with('error','Hết hàng');
             $already_cart->save();
 
         }else{
@@ -46,11 +46,11 @@ class CartController extends Controller
             $cart->price = ($product->price-($product->price*$product->discount)/100);
             $cart->quantity = 1;
             $cart->amount=$cart->price*$cart->quantity;
-            if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Hết hàng');
             $cart->save();
             $wishlist=Wishlist::where('user_id',auth()->user()->id)->where('cart_id',null)->update(['cart_id'=>$cart->id]);
         }
-        request()->session()->flash('success','Product successfully added to cart');
+        request()->session()->flash('success','Sản phẩm đã được thêm vào giỏ hàng');
         return back();
     }
 
@@ -64,7 +64,7 @@ class CartController extends Controller
 
         $product = Product::where('slug', $request->slug)->first();
         if($product->stock <$request->quant[1]){
-            return back()->with('error','Out of stock, You can add other products.');
+            return back()->with('error','Hết hàng trong kho, bạn có thể chọn sản phẩm khác');
         }
         if ( ($request->quant[1] < 1) || empty($product) ) {
             request()->session()->flash('error','Invalid Products');
@@ -80,7 +80,7 @@ class CartController extends Controller
             // $already_cart->price = ($product->price * $request->quant[1]) + $already_cart->price ;
             $already_cart->amount = ($product->price * $request->quant[1])+ $already_cart->amount;
 
-            if ($already_cart->product->stock < $already_cart->quantity || $already_cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            if ($already_cart->product->stock < $already_cart->quantity || $already_cart->product->stock <= 0) return back()->with('error','Hết hàng');
 
             $already_cart->save();
 
@@ -92,11 +92,11 @@ class CartController extends Controller
             $cart->price = ($product->price-($product->price*$product->discount)/100);
             $cart->quantity = $request->quant[1];
             $cart->amount=($product->price * $request->quant[1]);
-            if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Stock not sufficient!.');
+            if ($cart->product->stock < $cart->quantity || $cart->product->stock <= 0) return back()->with('error','Hết hàng');
             // return $cart;
             $cart->save();
         }
-        request()->session()->flash('success','Product successfully added to cart.');
+        request()->session()->flash('success','Sản phẩm đã được thêm vào giỏ hàng');
         return back();
     }
 
@@ -127,7 +127,7 @@ class CartController extends Controller
                     // return $quant;
 
                     if($cart->product->stock < $quant){
-                        request()->session()->flash('error','Out of stock');
+                        request()->session()->flash('error','Không đủ hàng trong kho');
                         return back();
                     }
                     $cart->quantity = ($cart->product->stock > $quant) ? $quant  : $cart->product->stock;
@@ -138,7 +138,7 @@ class CartController extends Controller
                     $cart->amount = $after_price * $quant;
                     // return $cart->price;
                     $cart->save();
-                    $success = 'Cart successfully updated!';
+                    $success = 'Giỏ hàng đã được cập nhật!';
                 }else{
                     $error[] = 'Cart Invalid!';
                 }

@@ -58,7 +58,7 @@
 															<i class="ti-minus"></i>
 														</button>
 													</div>
-													<input type="text" name="quant[{{$key}}]" class="input-number"  data-min="1" data-max="100" value="{{$cart->quantity}}">
+													<input type="text" name="quant[{{$key}}]" class="input-number cart-qty-input"  data-min="1" data-max="1000" value="{{$cart->quantity}}" data-stock="{{$cart->product->stock}}">
 													<input type="hidden" name="qty_id[]" value="{{$cart->id}}">
 													<div class="button plus">
 														<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$key}}]">
@@ -108,7 +108,7 @@
 									<div class="coupon">
 									<form action="{{route('coupon-store')}}" method="POST">
 											@csrf
-											<input name="code" placeholder="Enter Your Coupon">
+											<input name="code" placeholder="Nhập mã giảm giá">
 											<button class="btn">Lưu</button>
 										</form>
 									</div>
@@ -123,7 +123,7 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Tổng tiền giỏ hàng<span>{{number_format(Helper::totalCartPrice(),2)}} VND</span></li>
+										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Tổng tiền<span>{{number_format(Helper::totalCartPrice(),2)}} VND</span></li>
                                         <li class="sale" data-price="">Giảm giá<span>{{ $sale * 100 }}%</span></li>
 										@if(session()->has('coupon'))
 										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
@@ -135,9 +135,9 @@
 											}
 										@endphp
 										@if(session()->has('coupon'))
-											<li class="last" id="order_total_price">You Pay<span>{{number_format($total_amount - ($total_amount * $sale),2)}} VND</span></li>
+											<li class="last" id="order_total_price">Cần trả<span>{{number_format($total_amount - ($total_amount * $sale),2)}} VND</span></li>
 										@else
-											<li class="last" id="order_total_price">You Pay<span>{{number_format($total_amount - ($total_amount * $sale),2)}} VND</span></li>
+											<li class="last" id="order_total_price">Cần trả<span>{{number_format($total_amount - ($total_amount * $sale),2)}} VND</span></li>
 										@endif
 									</ul>
 									<div class="button5">
@@ -251,6 +251,66 @@
 	</style>
 @endpush
 @push('scripts')
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const qtyInputs = document.querySelectorAll('.cart-qty-input');
+
+			qtyInputs.forEach(input => {
+				const minusBtn = input.closest('.input-group').querySelector('.btn-number[data-type="minus"]');
+				const plusBtn = input.closest('.input-group').querySelector('.btn-number[data-type="plus"]');
+				const maxStock = parseInt(input.getAttribute('data-stock'));
+
+				// Gõ trực tiếp
+				let typingTimer;
+				input.addEventListener('input', function () {
+					clearTimeout(typingTimer);
+					typingTimer = setTimeout(() => {
+						let val = parseInt(this.value);
+
+						if (isNaN(val) || val < 1) {
+							this.value = 1;
+						} else if (val > maxStock) {
+							Swal.fire({
+								icon: 'error',
+								title: 'Vượt tồn kho',
+								text: 'Tối đa chỉ còn ' + maxStock + ' sản phẩm!',
+								confirmButtonColor: '#d33'
+							});
+							this.value = maxStock;
+						}
+					}, 300);
+				});
+
+				// Nút +
+				if (plusBtn) {
+					plusBtn.addEventListener('click', function () {
+						let val = parseInt(input.value) || 0;
+						if (val >= maxStock) {
+							Swal.fire({
+								icon: 'error',
+								title: 'Vượt tồn kho',
+								text: 'Tối đa chỉ còn ' + maxStock + ' sản phẩm!',
+								confirmButtonColor: '#d33'
+							});
+							input.value = maxStock;
+						}
+					});
+				}
+
+				// Nút -
+				if (minusBtn) {
+					minusBtn.addEventListener('click', function () {
+						let val = parseInt(input.value) || 0;
+						if (val <= 1) {
+							input.value = 1;
+						}
+					});
+				}
+			});
+		});
+	</script>
+
 	<script src="{{asset('frontend/js/nice-select/js/jquery.nice-select.min.js')}}"></script>
 	<script src="{{ asset('frontend/js/select2/js/select2.min.js') }}"></script>
 	<script>

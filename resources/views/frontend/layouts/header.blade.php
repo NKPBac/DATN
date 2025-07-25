@@ -1,8 +1,8 @@
-<header class="header shop">
+<header class="header shop align-items-center">
     <!-- Topbar -->
     <div class="topbar">
-        <div class="container">
-            <div class="row">
+        <div class="container align-items-center">
+            <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-12">
                     <!-- Top Left -->
                     <div class="top-left">
@@ -22,13 +22,13 @@
                     <div class="right-content">
                         <ul class="list-main">
                         <li>{{ !empty(Auth::user()->name) ? Auth::user()->name : '' }}</li>
-                        <li><i class="ti-location-pin"></i> <a href="{{route('order.track')}}">Theo dõi thứ tự</a></li>
+                        
                             {{-- <li><i class="ti-alarm-clock"></i> <a href="#">Daily deal</a></li> --}}
                             @auth
                                 @if(Auth::user()->role=='admin')
                                     <li><i class="ti-user"></i> <a href="{{route('admin')}}"  target="_blank">Bảng điều khiển</a></li>
                                 @else
-                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Bảng điều khiển</a></li>
+                                    <li><i class="ti-user"></i> <a href="{{route('user')}}"  target="_blank">Trạng thái đơn hàng</a></li>
                                 @endif
                                 <li><i class="ti-power-off"></i> <a href="{{route('user.logout')}}">Đăng xuất</a></li>
 
@@ -45,14 +45,14 @@
     <!-- End Topbar -->
     <div class="middle-inner">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="col-lg-2 col-md-2 col-12">
                     <!-- Logo -->
                     <div class="logo">
                         @php
                             $settings=DB::table('settings')->get();
                         @endphp
-                        <a href="{{route('home')}}"><img src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo"></a>
+                        <a href="{{route('home')}}"><img src="@foreach($settings as $data) {{$data->logo}} @endforeach" alt="logo" style="width: 100px; height: auto;"></a>
                     </div>
                     <!--/ End Logo -->
                     <!-- Search Form -->
@@ -73,7 +73,7 @@
                 <div class="col-lg-8 col-md-7 col-12">
                     <div class="search-bar-top">
                         <div class="search-bar">
-                            <select>
+                            <select >
                                 <option >Tất cả danh mục</option>
                                 @foreach(Helper::getAllCategory() as $cat)
                                     <option>{{$cat->title}}</option>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-12">
-                    <div class="right-bar">
+                    <div class="right-bar d-flex align-items-center justify-content-end" style="gap: 15px;">
                         <!-- Search Form -->
                         <div class="sinlge-bar shopping">
                             @php

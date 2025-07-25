@@ -53,9 +53,15 @@
                                 @else
                                     <img src="https://via.placeholder.com/600x370" alt="#">
                                 @endif
-                                <div class="content" >
-                                    <h3 style="color:white">{{$cat->title}}</h3>
-                                        <a href="{{route('product-cat',$cat->slug)}} "  style="color:white">Khám phá ngay</a>
+                               
+                                <div class="content">
+                                    <h3 style="color: black; font-size: 28px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
+                                        {{ $cat->title }}
+                                    </h3>
+                                    <a href="{{ route('product-cat', $cat->slug) }}"
+                                    style="color: black; font-size: 18px; font-weight: 500; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); text-decoration: underline;">
+                                        Khám phá ngay
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -117,9 +123,9 @@
                                                 <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                 <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
                                                 @if($product->stock<=0)
-                                                    <span class="out-of-stock">Sale out</span>
+                                                    <span class="out-of-stock">Hết hàng</span>
                                                 @elseif($product->condition=='new')
-                                                    <span class="new">New</span
+                                                    <span class="new">Mới</span
                                                 @elseif($product->condition=='hot')
                                                     <span class="hot">Hot</span>
                                                 @else
@@ -181,9 +187,9 @@
                             @php
                                 $photo=explode(',',$data->photo);
                             @endphp
-                            <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
+                            <img src="{{$photo[0]}}" alt="{{$photo[0]}}" >
                             <div class="content">
-                                <p>{{$data->cat_info['title']}}</p>
+                                <p style ="font-size:20px;">{{$data->cat_info['title']}}</p>
                                 <h3  style="color:white; font-size:25px">{{$data->title}} <br>Up to<span> {{$data->discount}}%</span></h3>
                                 <a href="{{route('product-detail',$data->slug)}}">Mua ngay</a>
                             </div>
@@ -203,7 +209,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Sản phẩm  hot</h2>
+                    <h2>Sản phẩm hot</h2>
                 </div>
             </div>
         </div>

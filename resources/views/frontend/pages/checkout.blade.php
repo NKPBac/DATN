@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>First Name<span>*</span></label>
+                                            <label>Họ<span>*</span></label>
                                             <input type="text" name="first_name" placeholder="" value="{{old('first_name')}}" value="{{old('first_name')}}">
                                             @error('first_name')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Họ Tên<span>*</span></label>
+                                            <label>Tên<span>*</span></label>
                                             <input type="text" name="last_name" placeholder="" value="{{old('lat_name')}}">
                                             @error('last_name')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Country<span>*</span></label>
+                                            <label>Quốc gia<span>*</span></label>
                                             <select name="country" id="country">
 {{--                                                <option value="AF">Afghanistan</option>--}}
 {{--                                                <option value="AX">Åland Islands</option>--}}
@@ -330,7 +330,7 @@
                                     @endphp
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-group">
-                                            <label>Địa chỉ 1<span>*</span></label>
+                                            <label>Địa chỉ<span>*</span></label>
                                             <input type="text" name="address1" placeholder="" value="{{old('address1')}}">
                                             @error('address1')
                                                 <span class='text-danger'>{{$message}}</span>
@@ -405,7 +405,7 @@
                                 <div class="single-widget get-button">
                                     <div class="content">
                                         <div class="button">
-                                            <button type="submit" class="btn" style="font-size: 12px !important;">tiến hành kiểm tra thanh toán</button>
+                                            <button type="submit" class="btn" style="font-size: 12px !important;">thanh toán</button>
                                         </div>
                                     </div>
                                 </div>
@@ -422,12 +422,12 @@
                         <form-group>
                             <input name="payment_method"  type="radio" value="cod"> <label> Thanh toán khi giao hàng</label><br>
                             {{--                                                <input name="payment_method"  type="radio" value="paypal"> <label> PayPal</label>--}}
-                            <a class="btn btn-primary" style="color: white; width: 100%; text-align: center;" href="{{ route('createPaypal.processPaypal', ['id' => 1]) }}">Thanh toán qua PayPal</a>
+                            
                             <br>
                             <br>
                             <form action="{{ route('createVnpay',['id' => $total_amount]) }}" method="POST">
                                 @csrf
-                                <button name="redirect" class="btn btn-primary" type="submit" style="color: white; width: 100%; text-align: center; border: none;">Thanh toán qua VnPay</button>
+                                
                             </form>
                         </form-group>
 

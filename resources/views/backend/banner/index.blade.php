@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','Atino || Banner')
+@section('title','PHUONGBAC || Banner')
 @section('main-content')
  <!-- DataTales Example -->
  <div class="card shadow mb-4">
@@ -153,8 +153,8 @@
               // alert(dataID);
               e.preventDefault();
               swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
+                    title: "Xác nhận lại",
+                    text: "Một khi xóa dữ liệu không thể khôi phục!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

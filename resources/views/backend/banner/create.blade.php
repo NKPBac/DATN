@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 
-@section('title','Atino || Tạo banner')
+@section('title','PHUONGBAC || Tạo banner')
 
 @section('main-content')
 

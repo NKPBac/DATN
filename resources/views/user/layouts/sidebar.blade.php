@@ -29,7 +29,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{route('user.order.index')}}">
             <i class="fas fa-hammer fa-chart-area"></i>
-            <span>Orders</span>
+            <span>Đơn hàng</span>
         </a>
     </li>
 

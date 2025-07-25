@@ -61,7 +61,7 @@ class ProductReviewController extends Controller
         ];
         Notification::send($user,new StatusNotification($details));
         if($status){
-            request()->session()->flash('success','Thank you for your feedback');
+            request()->session()->flash('success','Cảm ơn đánh giá của bạn');
         }
         else{
             request()->session()->flash('error','Something went wrong! Please try again!!');

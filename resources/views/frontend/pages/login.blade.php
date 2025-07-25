@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','Atino || Login Page')
+@section('title','PHUONGBAC || Login Page')
 
 @section('main-content')
     <!-- Breadcrumbs -->

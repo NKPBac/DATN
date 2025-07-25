@@ -11,15 +11,15 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-            <th>S.N.</th>
-            <th>Order No.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Quantity</th>
-            <th>Charge</th>
-            <th>Total Amount</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Số thứ tự</th>
+              <th>Mã đơn hàng</th>
+              <th>Tên</th>
+              <th>Email</th>
+              <th>Số lượng</th>
+              <th>Chi phí</th>
+              <th>Tổng tiền</th>
+              <th>Trạng thái</th>
+              <th>Thao tác</th>
         </tr>
       </thead>
       <tbody>
@@ -59,41 +59,41 @@
         <div class="row">
           <div class="col-lg-6 col-lx-4">
             <div class="order-info">
-              <h4 class="text-center pb-4">ORDER INFORMATION</h4>
+              <h4 class="text-center pb-4">THÔNG TIN ĐƠN HÀNG</h4>
               <table class="table">
                     <tr class="">
-                        <td>Order Number</td>
+                        <td>Số đơn hàng</td>
                         <td> : {{$order->order_number}}</td>
                     </tr>
                     <tr>
-                        <td>Order Date</td>
+                        <td>Ngày đặt hàng</td>
                         <td> : {{$order->created_at->format('D d M, Y')}} at {{$order->created_at->format('g : i a')}} </td>
                     </tr>
                     <tr>
-                        <td>Quantity</td>
+                        <td>Số lượng</td>
                         <td> : {{$order->quantity}}</td>
                     </tr>
                     <tr>
-                        <td>Order Status</td>
+                        <td>Trạng thái đơn hàng</td>
                         <td> : {{$order->status}}</td>
                     </tr>
                     <tr>
                       @php
                           $shipping_charge=DB::table('shippings')->where('id',$order->shipping_id)->pluck('price');
                       @endphp
-                        <td>Shipping Charge</td>
+                        <td>Phí vận chuyển</td>
                         <td> :${{!empty($order->shipping->price) ? $order->shipping->price : 0}}</td>
                     </tr>
                     <tr>
-                        <td>Total Amount</td>
+                        <td>Tổng tiền</td>
                         <td> : $ {{number_format($order->total_amount,2)}}</td>
                     </tr>
                     <tr>
-                      <td>Payment Method</td>
+                      <td>Phương thức thanh toán</td>
                       <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
                     </tr>
                     <tr>
-                        <td>Payment Status</td>
+                        <td>Trạng thái thanh toán</td>
                         <td> : {{$order->payment_status}}</td>
                     </tr>
               </table>
@@ -102,10 +102,10 @@
 
           <div class="col-lg-6 col-lx-4">
             <div class="shipping-info">
-              <h4 class="text-center pb-4">SHIPPING INFORMATION</h4>
+              <h4 class="text-center pb-4">THÔNG TIN VẬN CHUYỂN</h4>
               <table class="table">
                     <tr class="">
-                        <td>Full Name</td>
+                        <td>Họ tên</td>
                         <td> : {{$order->first_name}} {{$order->last_name}}</td>
                     </tr>
                     <tr>
@@ -113,19 +113,19 @@
                         <td> : {{$order->email}}</td>
                     </tr>
                     <tr>
-                        <td>Phone No.</td>
+                        <td>Số điện thoại</td>
                         <td> : {{$order->phone}}</td>
                     </tr>
                     <tr>
-                        <td>Address</td>
+                        <td>Địa chỉ</td>
                         <td> : {{$order->address1}}, {{$order->address2}}</td>
                     </tr>
                     <tr>
-                        <td>Country</td>
+                        <td>Quốc gia</td>
                         <td> : {{$order->country}}</td>
                     </tr>
                     <tr>
-                        <td>Post Code</td>
+                        <td>Mã vận chuyển</td>
                         <td> : {{$order->post_code}}</td>
                     </tr>
               </table>
@@ -135,7 +135,29 @@
       </div>
     </section>
     @endif
-
+<h4 class="text-center pb-3 pt-4">DANH SÁCH SẢN PHẨM</h4>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên sản phẩm</th>
+      <th>Số lượng</th>
+      <!-- <th>Giá</th>
+      <th>Thành tiền</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($order->cart as $key => $cart)
+      <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>{{ $cart->product->title ?? 'Sản phẩm không tồn tại' }}</td>
+        <td>{{ $cart->quantity }}</td>
+        <!-- <td>${{ number_format($cart->price, 2) }}</td>
+        <td>${{ number_format($cart->amount, 2) }}</td> -->
+      </tr>
+    @endforeach
+  </tbody>
+</table>
   </div>
 </div>
 @endsection

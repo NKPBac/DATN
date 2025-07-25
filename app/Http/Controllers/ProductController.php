@@ -99,6 +99,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**
@@ -178,7 +179,7 @@ class ProductController extends Controller
         $status=$product->delete();
         
         if($status){
-            request()->session()->flash('success','Product successfully deleted');
+            request()->session()->flash('success','Đã xóa sản phẩm');
         }
         else{
             request()->session()->flash('error','Error while deleting product');

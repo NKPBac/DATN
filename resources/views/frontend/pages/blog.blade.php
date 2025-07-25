@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','Atino')
+@section('title','PHUONGBAC')
 
 @section('main-content')
     <!-- Breadcrumbs -->
@@ -88,7 +88,7 @@
                         <!--/ End Single Widget -->
                         <!-- Single Widget -->
                         <div class="single-widget recent-post">
-                            <h3 class="title">Recent post</h3>
+                            <h3 class="title">Xem gần đây</h3>
                             @foreach($recent_posts as $post)
                                 <!-- Single Post -->
                                 <div class="single-post">

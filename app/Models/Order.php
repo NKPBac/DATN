@@ -21,7 +21,7 @@ class Order extends Model
         return 0;
     }
     public function cart(){
-        return $this->hasMany(Cart::class);
+         return $this->hasMany(Cart::class, 'order_id');
     }
 
     public function shipping(){
